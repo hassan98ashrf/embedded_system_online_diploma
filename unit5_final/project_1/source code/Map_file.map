@@ -1,0 +1,215 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+ALARM_state_id      0x1               alarm.o
+CP_state            0x4               CP.o
+CP_state_id         0x1               CP.o
+ALARM_state         0x4               alarm.o
+PS_state            0x4               PS.o
+PS_state_id         0x1               PS.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+Flash            0x00000000         0x20000000         xr
+SRAM             0x20000000         0x20000000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000      0x3e8
+ *(.vectors*)
+ .vectors       0x00000000       0x10 startup.o
+                0x00000000                fun_to_vectors
+                0x00000010                . = ALIGN (0x4)
+ *(.text*)
+ .text          0x00000010       0xcc CP.o
+                0x00000010                PS_set_pressure
+                0x0000006c                State_CP_waiting
+                0x000000a8                State_CP_driving
+ .text          0x000000dc       0x54 PS.o
+                0x000000dc                PS_init
+                0x000000e8                State_PS_busy
+ .text          0x00000130       0xc0 alarm.o
+                0x00000130                ALARM_init
+                0x0000013c                Set_Alarm_actuator
+                0x000001ac                State_ALARM_ideal
+                0x000001c4                State_ALARM_busy
+ .text          0x000001f0       0xbc driver.o
+                0x000001f0                Delay
+                0x00000214                getPressureVal
+                0x0000022c                GPIO_INITIALIZATION
+ .text          0x000002ac       0x80 main.o
+                0x000002ac                setup
+                0x000002f0                main
+ .text          0x0000032c       0xbc startup.o
+                0x0000032c                reset_handler
+                0x000003dc                default_handler
+                0x000003dc                H_fault_handler
+                0x000003dc                NMI_handler
+                0x000003e8                . = ALIGN (0x4)
+ *(.rodata*)
+                0x000003e8                . = ALIGN (0x4)
+                0x000003e8                _E_TEXT = .
+
+.glue_7         0x000003e8        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x000003e8        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x000003e8        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x000003e8        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x000003e8        0x0
+ .iplt          0x00000000        0x0 CP.o
+
+.rel.dyn        0x000003e8        0x0
+ .rel.iplt      0x00000000        0x0 CP.o
+
+.data           0x20000000        0x4 load address 0x000003e8
+                0x20000000                _S_DATA = .
+ *(.data*)
+ .data          0x20000000        0x4 CP.o
+                0x20000000                CP_threshold
+ .data          0x20000004        0x0 PS.o
+ .data          0x20000004        0x0 alarm.o
+ .data          0x20000004        0x0 driver.o
+ .data          0x20000004        0x0 main.o
+ .data          0x20000004        0x0 startup.o
+                0x20000004                . = ALIGN (0x4)
+                0x20000004                _E_DATA = .
+
+.igot.plt       0x20000004        0x0 load address 0x000003ec
+ .igot.plt      0x00000000        0x0 CP.o
+
+.bss            0x20000004      0x428 load address 0x000003ec
+                0x20000004                _S_bss = .
+ *(.bss*)
+ .bss           0x20000004        0x8 CP.o
+                0x20000004                CP_led
+                0x20000008                CP_pressure
+ .bss           0x2000000c        0x4 PS.o
+                0x2000000c                PS_pressure
+ .bss           0x20000010        0x4 alarm.o
+                0x20000010                ALARM_led
+ .bss           0x20000014        0x0 driver.o
+ .bss           0x20000014        0x0 main.o
+ .bss           0x20000014      0x400 startup.o
+                0x20000414                . = ALIGN (0x4)
+                0x20000414                _E_bss = .
+ COMMON         0x20000414        0x5 CP.o
+                0x20000414                CP_state
+                0x20000418                CP_state_id
+ *fill*         0x20000419        0x3 
+ COMMON         0x2000041c        0x5 PS.o
+                0x2000041c                PS_state
+                0x20000420                PS_state_id
+ *fill*         0x20000421        0x3 
+ COMMON         0x20000424        0x8 alarm.o
+                0x20000424                ALARM_state_id
+                0x20000428                ALARM_state
+LOAD CP.o
+LOAD PS.o
+LOAD alarm.o
+LOAD driver.o
+LOAD main.o
+LOAD startup.o
+OUTPUT(pressure_control_system.elf elf32-littlearm)
+
+.debug_info     0x00000000      0x6db
+ .debug_info    0x00000000      0x154 CP.o
+ .debug_info    0x00000154      0x101 PS.o
+ .debug_info    0x00000255      0x150 alarm.o
+ .debug_info    0x000003a5       0xdc driver.o
+ .debug_info    0x00000481       0xd8 main.o
+ .debug_info    0x00000559      0x182 startup.o
+
+.debug_abbrev   0x00000000      0x3bd
+ .debug_abbrev  0x00000000       0xb2 CP.o
+ .debug_abbrev  0x000000b2       0x9f PS.o
+ .debug_abbrev  0x00000151       0xb2 alarm.o
+ .debug_abbrev  0x00000203       0x8e driver.o
+ .debug_abbrev  0x00000291       0x66 main.o
+ .debug_abbrev  0x000002f7       0xc6 startup.o
+
+.debug_loc      0x00000000      0x2f0
+ .debug_loc     0x00000000       0x90 CP.o
+ .debug_loc     0x00000090       0x58 PS.o
+ .debug_loc     0x000000e8       0xbc alarm.o
+ .debug_loc     0x000001a4       0x90 driver.o
+ .debug_loc     0x00000234       0x58 main.o
+ .debug_loc     0x0000028c       0x64 startup.o
+
+.debug_aranges  0x00000000       0xc0
+ .debug_aranges
+                0x00000000       0x20 CP.o
+ .debug_aranges
+                0x00000020       0x20 PS.o
+ .debug_aranges
+                0x00000040       0x20 alarm.o
+ .debug_aranges
+                0x00000060       0x20 driver.o
+ .debug_aranges
+                0x00000080       0x20 main.o
+ .debug_aranges
+                0x000000a0       0x20 startup.o
+
+.debug_line     0x00000000      0x2ac
+ .debug_line    0x00000000       0x56 CP.o
+ .debug_line    0x00000056       0x43 PS.o
+ .debug_line    0x00000099       0x97 alarm.o
+ .debug_line    0x00000130       0x93 driver.o
+ .debug_line    0x000001c3       0x73 main.o
+ .debug_line    0x00000236       0x76 startup.o
+
+.debug_str      0x00000000      0x2bf
+ .debug_str     0x00000000      0x128 CP.o
+                                0x180 (size before relaxing)
+ .debug_str     0x00000128       0x44 PS.o
+                                0x139 (size before relaxing)
+ .debug_str     0x0000016c       0x82 alarm.o
+                                0x186 (size before relaxing)
+ .debug_str     0x000001ee       0x39 driver.o
+                                0x12f (size before relaxing)
+ .debug_str     0x00000227       0x12 main.o
+                                0x11d (size before relaxing)
+ .debug_str     0x00000239       0x86 startup.o
+                                0x16e (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 CP.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 PS.o
+ .comment       0x00000000       0x12 alarm.o
+ .comment       0x00000000       0x12 driver.o
+ .comment       0x00000000       0x12 main.o
+ .comment       0x00000000       0x12 startup.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x33 CP.o
+ .ARM.attributes
+                0x00000033       0x33 PS.o
+ .ARM.attributes
+                0x00000066       0x33 alarm.o
+ .ARM.attributes
+                0x00000099       0x33 driver.o
+ .ARM.attributes
+                0x000000cc       0x33 main.o
+ .ARM.attributes
+                0x000000ff       0x33 startup.o
+
+.debug_frame    0x00000000      0x20c
+ .debug_frame   0x00000000       0x64 CP.o
+ .debug_frame   0x00000064       0x44 PS.o
+ .debug_frame   0x000000a8       0x74 alarm.o
+ .debug_frame   0x0000011c       0x5c driver.o
+ .debug_frame   0x00000178       0x48 main.o
+ .debug_frame   0x000001c0       0x4c startup.o
