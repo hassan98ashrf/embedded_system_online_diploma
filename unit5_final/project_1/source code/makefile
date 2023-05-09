@@ -1,5 +1,5 @@
 CC			 =arm-none-eabi-
-CFLAGS 		 =-mcpu=cortex-m4 -mthumb -gdwarf-2 -g
+CFLAGS 		 =-mcpu=cortex-m4 -mthumb 
 INCS		 =-I .
 LIBS		 =
 SRC			 =$(wildcard *.c)
