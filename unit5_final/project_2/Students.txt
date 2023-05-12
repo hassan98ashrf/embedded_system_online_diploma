@@ -1,0 +1,5 @@
+1 Hassan Ashraf 3.5 55 66 77 88 12
+2 Ahmed Khaled 2.4 55 22 11 88 12
+3 Ola Sobhy 4.1 55 66 77 88 78
+3 Hamza Halka 1.5 44 33 22 11 63
+4 Reem Ayman 2.5 44 11 99 88 64
