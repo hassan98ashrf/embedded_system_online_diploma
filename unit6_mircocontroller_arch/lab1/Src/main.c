@@ -20,25 +20,81 @@
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
-
-typedef volatile unsigned int vint32_t ;
-#include <stdio.h>
+typedef volatile unsigned int vuint32_t;
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdio.h>
 
-#define GPIO_BASE   0x40010800
-#define GPIO_CRH    *(volatile uint32_t *)(GPIO_BASE +0x04)
-#define GPIO_ODR    *(volatile uint32_t *)(GPIO_BASE +0x0C)
+//define  register
+#define RCC_BASE   			 0x40021000
+#define RCC_APB2ENR    		 *(volatile uint32_t *)(RCC_BASE +0x18)
+#define RCC_IOPAEN   		 (1<<2)
 
-int main(void)
-{
-	GPIO_CRH  &=  0xFF0FFFFF;
-	GPIO_CRH  |=  0x00200000;
+#define GPIOA_BASE  		 0x40010800
+#define GPIOA_CRL   		 *(volatile uint32_t *)(GPIOA_BASE +0x00)
+#define GPIOA_CRH   		 *(volatile uint32_t *)(GPIOA_BASE +0x04)
+#define GPIOA_ODR  			 *(volatile uint32_t *)(GPIOA_BASE +0x0C)
+#define GPIOA_IDR  			 *(volatile uint32_t *)(GPIOA_BASE +0x08)
+#define GPIOA13				 (1UL<<13)
 
-	for(;;){
-		GPIO_ODR  |=  1<<13;
-		for(int i = 0 ; i<5000;i++);
-		GPIO_ODR  &=  ~(1<<13);
-		for(int i = 0 ; i<5000;i++);
-	}
+#define GPIOB_BASE  		 0x40010C00
+#define GPIOB_CRL   		 *(volatile uint32_t *)(GPIOB_BASE +0x00)
+#define GPIOB_CRH   		 *(volatile uint32_t *)(GPIOB_BASE +0x04)
+#define GPIOB_ODR  			 *(volatile uint32_t *)(GPIOB_BASE +0x0C)
+#define GPIOB_IDR  			 *(volatile uint32_t *)(GPIOB_BASE +0x08)
+
+void clock_init(){
+	//Enable  GPIOA  clock
+	RCC_APB2ENR |= RCC_IOPAEN;
+	//Enable  GPIOB  clock
+	 RCC_APB2ENR |= 1<<3	;
+
 }
+
+void GPIO_init(){
+	GPIOA_CRL =0x0;
+	GPIOB_CRL =0x0;
+
+	//PA1 INPUT HIGH Z
+	GPIOA_CRL |= 1<<6;
+
+	//PB1 OUTPUT PUSH PULL
+	GPIOB_CRL &= ~(0b11 << 6);
+	GPIOB_CRL |=  (0b01 << 4);
+
+	//PA13 INPUT HIGH Z
+	GPIOA_CRH &= ~(0b11 << 20);
+	GPIOA_CRH |=  (0b01 << 22);
+	//PB13 OUTPUT PUSH PUL
+	GPIOB_CRH |=  (0b01 << 20);
+	GPIOB_CRH &= ~(0b11 << 22);
+}
+
+void my_wait(int x ){
+	unsigned int i , j ;
+	for(i=0 ; i<x ; i++ )
+		for(j=0 ; j<255 ; j++ );
+}
+
+int main(){
+	clock_init();
+	GPIO_init();
+
+	while(1){
+		//PA1 >>> Exit pull up
+		if((GPIOA_IDR & (1<<1)>>1) == 0 ){
+			GPIOB_ODR ^= (1<<1);
+			while(((GPIOA_IDR & (1<<1)>>1) == 0 ));//single press
+		}
+		//PA13 >>> Exit pull up
+		if((GPIOA_IDR & (1<<13)>>13) == 1 ){
+			GPIOB_ODR ^= (1<<13);//multi press
+		}
+
+		my_wait(1);
+
+	}
+
+}
+
+

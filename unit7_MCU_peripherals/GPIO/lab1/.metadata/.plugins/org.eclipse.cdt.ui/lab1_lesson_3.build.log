@@ -1,0 +1,20 @@
+11:08:06 **** Build of configuration Debug for project lab1_lesson_3 ****
+make -j12 all 
+arm-none-eabi-gcc -gdwarf-2 "../Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DSTM32 -DSTM32F1 -DSTM32F103C6Tx -DDEBUG -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "lab1_lesson_3.elf" @"objects.list"   -mcpu=cortex-m3 -T"H:\kerlos diploma\embedded_system_online_diploma\unit6_mircocontroller_arch\lab1\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab1_lesson_3.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: lab1_lesson_3.elf
+ 
+arm-none-eabi-objdump -h -S  lab1_lesson_3.elf  > "lab1_lesson_3.list"
+arm-none-eabi-objcopy  -O binary  lab1_lesson_3.elf  "lab1_lesson_3.bin"
+arm-none-eabi-size   lab1_lesson_3.elf 
+   text	   data	    bss	    dec	    hex	filename
+    860	      8	   1568	   2436	    984	lab1_lesson_3.elf
+Finished building: default.size.stdout
+ 
+Finished building: lab1_lesson_3.bin
+Finished building: lab1_lesson_3.list
+ 
+ 
+
+11:08:08 Build Finished. 0 errors, 0 warnings. (took 1s.966ms)
+

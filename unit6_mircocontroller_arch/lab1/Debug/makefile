@@ -45,8 +45,8 @@ lab1_lesson_3.bin \
 all: lab1_lesson_3.elf secondary-outputs
 
 # Tool invocations
-lab1_lesson_3.elf: $(OBJS) $(USER_OBJS) H:\kerlos\ diploma\master\ embedded\Assignment\unit6_mircocontroller_arch\lec3\lab1_lesson_3\STM32F103C6TX_FLASH.ld
-	arm-none-eabi-gcc -o "lab1_lesson_3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"H:\kerlos diploma\master embedded\Assignment\unit6_mircocontroller_arch\lec3\lab1_lesson_3\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab1_lesson_3.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+lab1_lesson_3.elf: $(OBJS) $(USER_OBJS) H:\kerlos\ diploma\embedded_system_online_diploma\unit6_mircocontroller_arch\lab1\STM32F103C6TX_FLASH.ld
+	arm-none-eabi-gcc -o "lab1_lesson_3.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"H:\kerlos diploma\embedded_system_online_diploma\unit6_mircocontroller_arch\lab1\STM32F103C6TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="lab1_lesson_3.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
