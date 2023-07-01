@@ -1,0 +1,8 @@
+MCAL/ADC.d MCAL/ADC.o: ../MCAL/ADC.c ../MCAL/INC/ADC.h \
+ ../MCAL/INC/ATmega32.h ../MCAL/INC/UTLIS.h
+
+../MCAL/INC/ADC.h:
+
+../MCAL/INC/ATmega32.h:
+
+../MCAL/INC/UTLIS.h:

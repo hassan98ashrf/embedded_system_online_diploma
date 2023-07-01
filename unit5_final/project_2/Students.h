@@ -9,7 +9,7 @@ header of FIFO
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include"string.h"
+#include <string.h>
 //setup std number
 #define NAME_LENGTH 25
 #define COURSES_NUMBER 5  //55 66 77 88   
