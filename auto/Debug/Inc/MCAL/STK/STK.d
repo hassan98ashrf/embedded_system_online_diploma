@@ -1,0 +1,17 @@
+Inc/MCAL/STK/STK.o: ../Inc/MCAL/STK/STK.c \
+ H:/NTI/PROJECT/auto/Inc/LIB/STD_TYPES.h \
+ H:/NTI/PROJECT/auto/Inc/LIB/BIT_MATH.h \
+ H:/NTI/PROJECT/auto/Inc/LIB/UTILIS.h ../Inc/MCAL/STK/STK_IF.h \
+ ../Inc/MCAL/STK/STK_CFG.h ../Inc/MCAL/STK/STK_PRIV.h
+
+H:/NTI/PROJECT/auto/Inc/LIB/STD_TYPES.h:
+
+H:/NTI/PROJECT/auto/Inc/LIB/BIT_MATH.h:
+
+H:/NTI/PROJECT/auto/Inc/LIB/UTILIS.h:
+
+../Inc/MCAL/STK/STK_IF.h:
+
+../Inc/MCAL/STK/STK_CFG.h:
+
+../Inc/MCAL/STK/STK_PRIV.h:

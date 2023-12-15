@@ -1,0 +1,3 @@
+FIND_PARKING.c:78:6:C4SLTFIND_voidInit	4	static
+FIND_PARKING.c:86:9:C4SLTFIND_voidSearchingforSlotFull	24	static
+FIND_PARKING.c:168:9:C4SLTFIND_voidSearchingforSlot	24	static

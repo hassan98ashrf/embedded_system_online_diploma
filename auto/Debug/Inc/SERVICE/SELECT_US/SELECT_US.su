@@ -1,0 +1,4 @@
+SELECT_US.c:66:6:APPC1_Init	8	static
+SELECT_US.c:84:12:APPC1_SelectUltrasonc	24	static
+SELECT_US.c:109:12:APPC1_xGetAllUSData	24	static
+SELECT_US.c:154:9:C4_StaticGetFourDistance	32	static

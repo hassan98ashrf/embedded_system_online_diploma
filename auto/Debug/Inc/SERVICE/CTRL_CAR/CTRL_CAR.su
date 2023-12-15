@@ -1,0 +1,2 @@
+CTRL_CAR.c:68:6:C2VCONTROL_voidInit	8	static
+CTRL_CAR.c:98:6:C2VCONTROL_voidChangeDirection	16	static

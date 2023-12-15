@@ -1,0 +1,3 @@
+RCC.c:57:6:RCC_voidEnableClock	16	static
+RCC.c:75:6:RCC_voidDisableClock	16	static
+RCC.c:94:6:RCC_voidInitSysClocks	4	static

@@ -1,4 +1,0 @@
-C5_PARKING.c:79:6:C5VCLEPRK_voidInitParking	8	static
-C5_PARKING.c:92:9:C5VCLEPRK_voidStartParking	24	static
-C5_PARKING.c:223:9:C5VCLEPRK_voidStartParkingM	24	static
-C5_PARKING.c:296:9:C5VCLEPRK_voidStartParking3	24	static
